@@ -745,7 +745,10 @@ async function saveMasla() {
     if(editId){ await set(ref(db,'masail/'+editId),obj); showToast('مسئلہ اپڈیٹ ہو گیا ✅',false,true); }
     else      { await push(masailRef,obj);                showToast('مسئلہ محفوظ ہو گیا ✅',false,true); }
     resetForm(); showTab('tab-list');
-  } catch(e){ showToast('خرابی — انٹرنیٹ چیک کریں',true); }
+  } catch(e){
+    console.error('Firebase Error:', e);
+    showToast('خرابی: ' + (e.message||e.code||'نامعلوم'), true);
+  }
 }
 window.saveMasla = saveMasla;
 
